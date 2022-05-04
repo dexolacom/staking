@@ -1,6 +1,6 @@
 {
-  "name": "nimbus-swap",
-  "description": "Nimbus Interface",
+  "name": "Staking",
+  "description": "Staking",
   "homepage": ".",
   "private": true,
   "devDependencies": {
