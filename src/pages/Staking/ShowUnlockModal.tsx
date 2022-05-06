@@ -1,8 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import Modal from './Modal'
+import Modal from '@material-ui/core/Modal';
 import { X } from 'react-feather'
 import { ArrowLeft } from 'react-feather'
 
@@ -70,7 +71,8 @@ const ShowUnlockModal = ({ title, IsShowUnlockOpened, setIsShowUnlockOpened, unl
   }
 
   return (
-    <Modal isOpen={IsShowUnlockOpened} onDismiss={() => setIsShowUnlockOpened(false)}>
+    <ModalWrapper open={IsShowUnlockOpened} onClose={() => setIsShowUnlockOpened(false)}
+      style={{margin: '20px auto'}}>
       <UnlockCard style={{ position: 'relative' }}>
         <StyledClose stroke="white" onClick={() => setIsShowUnlockOpened(false)} />
         <CardColumn>
@@ -96,9 +98,17 @@ const ShowUnlockModal = ({ title, IsShowUnlockOpened, setIsShowUnlockOpened, unl
           )}
         </CardColumn>
       </UnlockCard>
-    </Modal>
+    </ModalWrapper>
   )
 }
+
+const ModalWrapper = styled(Modal)`
+  max-width: 450px;
+  width: 100%;
+  height: fit-content;
+  margin: 10vh auto 2rem;
+  background: grey;
+`
 
 const UnlockCard = styled.div`
   box-sizing: border-box;

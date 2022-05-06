@@ -1,8 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
-import Modal from './Modal'
+import Modal from '@material-ui/core/Modal';
 import { checkSmallValueAndZero } from './utils'
 
 const DepositModal = ({
@@ -38,7 +38,7 @@ const DepositModal = ({
 
   const checkBalance = amount => {
     if (typeof amount !== 'string') {
-      console.log(" ERROR! Wrong parametr's type: ", typeof amount)
+      //console.log(" ERROR! Wrong parametr's type: ", typeof amount)
       return
     }
     let newStr
@@ -56,7 +56,7 @@ const DepositModal = ({
   }
 
   const handleCheckMinThreshold = value => {
-    console.log(value, '!!!')
+    //console.log(value, '!!!')
     if (isHandleMax) {
       setIsHandleMax(false)
       return
@@ -70,7 +70,7 @@ const DepositModal = ({
   }
 
   return (
-    <Modal isOpen={isDepositModalOpened} onDismiss={() => setIsDepositModalOpened(false)}>
+    <ModalWrapper open={isDepositModalOpened} onClose={() => setIsDepositModalOpened(false)}>
       <DepositCard>
         <CardColumn>
           <p>{`Staking - ${title}`}</p>
@@ -138,11 +138,19 @@ const DepositModal = ({
           </StakeButtonPrimary>
         </CardColumn>
       </DepositCard>
-    </Modal>
+    </ModalWrapper>
   )
 }
 
 export default DepositModal
+
+const ModalWrapper = styled(Modal)`
+  max-width: 450px;
+  width: 100%;
+  height: fit-content;
+  margin: 10vh auto 2rem;
+  background: grey;
+`
 
 const DepositCard = styled.div`
   box-sizing: border-box;

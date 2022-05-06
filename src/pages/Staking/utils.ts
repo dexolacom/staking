@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 export const reduceValue = val => +val / 10 ** 18
 
@@ -19,7 +20,7 @@ export const gnbuNbuConvert = async (amount, routerContract, adressGNBU, adressN
 
 export const convertValueNew = oldValue => {
   if (typeof oldValue !== 'string') {
-    console.log(" ERROR! Wrong parametr's type: ", typeof oldValue)
+    //console.log(" ERROR! Wrong parametr's type: ", typeof oldValue)
     return
   }
   const splitedOldValue = oldValue.split('.')

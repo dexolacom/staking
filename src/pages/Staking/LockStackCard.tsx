@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
@@ -11,10 +12,10 @@ import lockStakingAbi from './abi/lockStakingRewardSameTokenFixedAPYAbi.json'
 import GNBU_ADI from './abi/gnbu.json'
 import LOCK_STAKING_ABI_GNBU from './abi/lockStakingRewardFixedAPY.json'
 
-import Modal from './Modal'
 import WithdrawalModal from './withdrawModal'
 import { checkSmallValueAndZero, gnbuNbuConvert, convertValueNew, convertValue, reduceValue } from './utils'
 import { useWeb3React } from '@web3-react/core'
+import Modal from '@material-ui/core/Modal';
 
 const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerContract }) => {
   const [depositInputValue, setDepositInputValue] = useState('')
@@ -69,7 +70,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
 
   useEffect(() => {
     if (gnbu) {
-      ;(async () => await checkMinThreshold())()
+      (async () => await checkMinThreshold())()
       gnbuNbuConvert(
         depositInputValue,
         routerContract,
@@ -145,9 +146,9 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
     const approve = await NBU_TOKEN_CONTRACT.methods
       .approve(contractAddress, amount)
       .send({ from: account })
-      .on('transactionHash', function(hash) {})
-      .on('receipt', function(receipt) {})
-      .on('error', function(error, receipt) {})
+      .on('transactionHash', function(hash) {/*console.log(hash)*/})
+      .on('receipt', function(receipt) {/*console.log(receipt)*/})
+      .on('error', function(error, receipt) {/*console.log(error)*/})
     return approve
   }
 
@@ -181,7 +182,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
         from: account
       })
       .on('transactionHash', function(hash) {
-        console.log(hash)
+        /*console.log(hash)*/
       })
       .on('receipt', function(receipt) {
         setRewardBalance(0)
@@ -189,7 +190,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
         earned() // ?
       })
       .on('error', function(error, receipt) {
-        console.log(error)
+        /*console.log(error)*/
       })
   }
 
@@ -320,7 +321,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
           updateBalances()
         })
         .on('error', function(error, receipt) {
-          console.log(error)
+          /*console.log(error)*/
         })
     }
   }
@@ -334,7 +335,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
             from: account
           })
           .on('transactionHash', function(hash) {
-            console.log(hash)
+            //console.log(hash)
           })
           .on('receipt', function(receipt) {
             clearInterval(rewardCounterId)
@@ -364,10 +365,9 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
     </svg>
   )
 
-  // @ts-ignore
   return (
     <>
-      <Modal isOpen={withdraw} onDismiss={() => setWithdrawModal(false)} maxWidth={300}>
+      <ModalWrapper open={withdraw} onClose={() => setWithdrawModal(false)} maxWidth={300}>
         <WithdrawalModal
           setIsOpen={setWithdrawModal}
           withdrawAndGetReward={withdrawAndGetReward}
@@ -375,7 +375,7 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
           deposited={+reduceValue(amountToWithdraw)}
           reward={reduceValue(rewardBalance)}
         />
-      </Modal>
+      </ModalWrapper>
 
       <StakeCard gnbu={gnbu} isOpen={isManagementOpened}>
         {gnbu && <LimitedTimeOffer>Limited-time offer</LimitedTimeOffer>}
@@ -550,6 +550,14 @@ const LockStackCard = ({ title, apy, contractAddress, gnbu, lockDays, routerCont
 }
 
 export default LockStackCard
+
+const ModalWrapper = styled(Modal)`
+  max-width: 450px;
+  width: 100%;
+  height: fit-content;
+  margin: 10vh auto 2rem;
+  background: grey;
+`
 
 const StakeCard = styled.div`
   position: relative;

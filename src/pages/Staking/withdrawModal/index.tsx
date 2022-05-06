@@ -14,7 +14,7 @@ const WithdrawalModal: React.FC<Props> = ({ setIsOpen, withdrawAndGetReward, dep
     <Wrapper>
       <ModalHeader>
         <p style={{ textAlign: 'center' }}>Withdraw</p>
-        <StyledClose stroke="white" onClick={() => setIsOpen(false)} />
+        <StyledClose stroke='white' onClick={() => setIsOpen(false)} />
       </ModalHeader>
       <ModalBody>
         <PrimaryText>Availible Balance</PrimaryText>
@@ -37,7 +37,10 @@ const WithdrawalModal: React.FC<Props> = ({ setIsOpen, withdrawAndGetReward, dep
           Cancel
         </button>
 
-        <TertiaryText>When you withdraw the available balance, you also withdraw the balance of staking rewards</TertiaryText>
+        <TertiaryText>
+          When you withdraw the available balance,
+          you also withdraw the balance of staking rewards
+        </TertiaryText>
       </ModalBody>
     </Wrapper>
   )

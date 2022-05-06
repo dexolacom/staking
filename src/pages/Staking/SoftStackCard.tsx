@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ import LOCK_STAKING_ABI_GNBU from './abi/lockStakingRewardFixedAPY.json'
 
 //import { GNBU } from '../../constants'
 
-import Modal from './Modal'
+import Modal from "@material-ui/core/Modal";
 import WithdrawalModal from './withdrawModal'
 import { checkSmallValueAndZero, gnbuNbuConvert, convertValueNew, reduceValue } from './utils'
 import { useWeb3React } from '@web3-react/core'
@@ -124,10 +125,12 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
     const approve = await NBU_TOKEN_CONTRACT.methods
       .approve(contractAddress, amount)
       .send({ from: account })
-      .on('transactionHash', function(hash) {})
+      .on('transactionHash', function(hash) {/*console.log(hash)*/})
       .on('receipt', function(receipt) {
+        /*console.log(receipt)*/
       })
       .on('error', function(error, receipt) {
+        /*console.log(error)*/
       })
     return approve
   }
@@ -173,13 +176,14 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
       .send({
         from: account
       })
-      .on('transactionHash', function(hash) {})
+      .on('transactionHash', function(hash) {/*console.log(hash)*/})
       .on('receipt', function(receipt) {
         setRewardBalance(0)
         updateBalances()
         earned() // ?
       })
       .on('error', function(error, receipt) {
+        /*console.log(error)*/
       })
   }
 
@@ -211,6 +215,7 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
           gnbu && getStakeNonce()
         })
         .on('error', function(error, receipt) {
+          /*console.log(error)*/
         })
     }
   }
@@ -257,7 +262,7 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
             .send({
               from: account
             })
-            .on('transactionHash', function(hash) {})
+            .on('transactionHash', function(hash) {/*console.log(hash)*/})
             .on('receipt', function(receipt) {
               clearInterval(rewardCounterId)
               setRewardCounterId(null)
@@ -278,7 +283,7 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
         .send({
           from: account
         })
-        .on('transactionHash', function(hash) {})
+        .on('transactionHash', function(hash) {/*console.log(hash)*/})
         .on('receipt', function(receipt) {
           clearInterval(rewardCounterId)
           setRewardCounterId(null)
@@ -288,6 +293,7 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
           setWithdrawModal(false)
         })
         .on('error', function(error, receipt) {
+          /*console.log(error)*/
         })
     }
   }
@@ -314,7 +320,10 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
 
   return (
     <>
-      <Modal isOpen={withdrawModal} onDismiss={() => setWithdrawModal(false)} maxWidth={300}>
+      <ModalWrapper
+        open={withdrawModal}
+        onClose={() => setWithdrawModal(false)}
+        style={{margin: '20px auto'}}>
         <WithdrawalModal
           setIsOpen={setWithdrawModal}
           withdrawAndGetReward={withdrawAndGetReward}
@@ -322,7 +331,7 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
           deposited={+reduceValue(depositBalance)}
           reward={reduceValue(rewardBalance)}
         />
-      </Modal>
+      </ModalWrapper>
 
       <StakeCard gnbu={gnbu} isOpen={isManagementOpened}>
         <CardColumn>
@@ -456,6 +465,14 @@ const SoftStackCard = ({ title, apy, contractAddress, gnbu, routerContract }) =>
 }
 
 export default SoftStackCard
+
+const ModalWrapper = styled(Modal)`
+  max-width: 450px;
+  width: 100%;
+  height: fit-content;
+  margin: 10vh auto 2rem;
+  background: grey;
+`
 
 const StakeCard = styled.div`
   position: relative;

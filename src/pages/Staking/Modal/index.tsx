@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { animated, useTransition, useSpring } from 'react-spring'
@@ -34,13 +36,13 @@ const StyledDialogContent = styled(({ maxWidth, minHeight, maxHeight, mobile, is
     padding: 0px;
     width: 50vw;
     overflow-y: ${({ mobile, windowInnerHeight }) =>
-      mobile ? 'scroll' : windowInnerHeight < 700 ? 'scroll' : 'hidden'};
+    mobile ? 'scroll' : windowInnerHeight < 700 ? 'scroll' : 'hidden'};
     overflow-x: hidden;
     flex-direction: column;
     align-self: ${({ mobile }) => (mobile ? 'flex-end' : 'center')};
 
     ${({ maxWidth }) =>
-      maxWidth &&
+    maxWidth &&
       css`
         max-width: ${maxWidth}px;
       `}
