@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+commitRegex="(FIX|ADD|EDIT|CLEAR|REF)\s[|]\s[a-zA-Z0-9]"
+if ! grep -qE "$commitRegex" "$1"; then
+    echo "You can use: FIX | ADD | EDIT | REF | CLEAR + '|' + [text]"
+    exit 1
+fi
+

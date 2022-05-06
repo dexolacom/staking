@@ -1,8 +1,8 @@
-// @ts-nocheck
-import React, { useEffect } from 'react'
-import { ConnectButton, setStyles, useConnectors } from 'tech-web3-connector'
+import React from 'react';
+import './App.css';
 import styled from 'styled-components'
-import Staking from './Staking'
+import { ConnectButton, setStyles } from 'tech-web3-connector';
+import Staking from './pages/Staking'
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -15,38 +15,41 @@ const BodyWrapper = styled.div`
   padding: 50px 20px;
 `
 
+
 const customStyles = {
   // styled modal
   modalBackdrop: {},
   modalContainer: {},
   modalBtnClose: {},
-  modalConnectorsContainer: { 'background-color': 'color' }, // example code
+  modalConnectorsContainer: { "background-color": "color" }, // example code
   modalConnectorsItem: {},
   modalBtnProvider: {},
-  modalNameWallet: { color: 'color' }, // example code
+  modalNameWallet: { color: "color" }, // example code
+
   // styled Button
   BtnBase: {},
   BtnContainer: {},
   BtnAdress: {},
   SpanBalance: {},
   BtnLogout: {},
-};
 
-const rpcObj = {
+  // hover Button
+  "BtnBase:hover": {
+    "background-color": "color", // example code
+  },
+}
+
+const RPC = {
+  56: 'https://bsc-dataseed.binance.org/',
   97: 'https://data-seed-prebsc-2-s3.binance.org:8545',
-  56: 'https://bsc-dataseed.binance.org',
 };
 
-export default function App() {
+function App() {
   setStyles(customStyles)
 
-  const { setRpcObj } = useConnectors()
-
-  useEffect(() => {
-    setRpcObj({ ...rpcObj })
-  }, [])
-
-  Number.prototype.toFixedDown = function(digits) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  Number.prototype.toFixedDown = function(digits: string) {
     const re = new RegExp('(\\d+\\.\\d{' + digits + '})(\\d)'),
       m = this.toString().match(re)
     return m ? parseFloat(m[1]) : this.valueOf()
@@ -54,8 +57,11 @@ export default function App() {
 
   return (
     <BodyWrapper>
-      <ConnectButton />
+      <ConnectButton RPC={RPC} portisId={'portisId-key-project'} />
       <Staking />
+      sdsddsd
     </BodyWrapper>
-  )
+  );
 }
+
+export default App;
